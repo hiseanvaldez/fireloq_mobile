@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activity_Login">
+
     <EditText
         android:id="@+id/tx_email"
         android:layout_width="300dp"
@@ -12,20 +13,20 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="150dp"
         android:ems="10"
-        android:inputType="textEmailAddress"
-        android:hint="Email"/>
+        android:hint="Email"
+        android:inputType="textEmailAddress" />
 
     <EditText
         android:id="@+id/tx_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:width="300dp"
         android:layout_below="@id/tx_email"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
+        android:width="300dp"
         android:ems="10"
-        android:inputType="textPassword"
-        android:hint="Password"/>
+        android:hint="Password"
+        android:inputType="textPassword" />
 
     <Button
         android:id="@+id/bt_forgotPass"
@@ -33,9 +34,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tx_password"
         android:layout_alignEnd="@id/tx_password"
+        android:layout_marginBottom="20dp"
         android:background="@android:color/transparent"
         android:text="Forgot password?"
-        android:layout_marginBottom="20dp"
         android:textColor="@color/colorAccent"
         android:textSize="10sp" />
 
@@ -43,21 +44,21 @@
         android:id="@+id/bt_login"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_below="@id/bt_forgotPass"
-        android:text="Sign in"
+        android:layout_centerHorizontal="true"
         android:background="@color/colorAccent"
-        android:textColor="#FFF"/>
+        android:text="Sign in"
+        android:textColor="#FFF" />
 
     <Button
         android:id="@+id/bt_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_below="@id/bt_login"
-        android:text="Create an account"
-        android:background="@android:color/transparent"
-        android:textSize="10sp"
         android:layout_alignEnd="@id/bt_login"
-        android:textColor="@color/colorAccent"/>
+        android:layout_centerHorizontal="true"
+        android:background="@android:color/transparent"
+        android:text="Create an account"
+        android:textColor="@color/colorAccent"
+        android:textSize="10sp" />
 </RelativeLayout>

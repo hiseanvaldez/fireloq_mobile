@@ -14,41 +14,40 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="150dp"
         android:ems="10"
-        android:inputType="textEmailAddress"
-        android:hint="Email"/>
+        android:hint="Email"
+        android:inputType="textEmailAddress" />
 
     <EditText
         android:id="@+id/tx_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:width="300dp"
         android:layout_below="@id/tx_email"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
+        android:width="300dp"
         android:ems="10"
-        android:inputType="textPassword"
-        android:hint="Password"/>
+        android:hint="Password"
+        android:inputType="textPassword" />
 
     <Button
         android:id="@+id/bt_register"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_below="@id/tx_password"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:text="Sign up"
         android:background="@color/colorAccent"
-        android:textColor="#FFF"
-        />
+        android:text="Sign up"
+        android:textColor="#FFF" />
 
     <Button
         android:id="@+id/bt_login"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_below="@id/bt_register"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:text="Already a member?"
         android:background="@android:color/transparent"
-        android:textColor="@color/colorAccent"/>
+        android:text="Already a member?"
+        android:textColor="@color/colorAccent" />
 </RelativeLayout>
