@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragment_Home">
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="267dp"
+        android:layout_height="251dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="117dp"
+        android:src="@drawable/fireloqlogo" />
+
+    <Button
+        android:id="@+id/btn_turnOnBT"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:padding="15dp"
+        android:text="FireloQ isn't syncing because bluetooth is off." />
+
+    <TextView
+        android:id="@+id/tv_stream"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/btn_turnOnBT"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="154dp"
+        android:text="TextView" />
+
+    <com.ebanx.swipebtn.SwipeButton
+        android:id="@+id/swipe_btn"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="399dp"
+        android:layout_marginEnd="20dp"
+        app:button_background="@drawable/my_circle"
+        app:button_bottom_padding="20dp"
+        app:button_image_disabled="@drawable/ic_lock_open_black_24dp"
+        app:button_image_enabled="@drawable/ic_lock_outline_black_24dp"
+        app:button_left_padding="20dp"
+        app:button_right_padding="20dp"
+        app:button_top_padding="20dp"
+        app:inner_text="Bypass Mode"
+        app:inner_text_background="@drawable/shape_rounded"
+        app:inner_text_bottom_padding="18dp"
+        app:inner_text_color="@android:color/white"
+        app:inner_text_size="17sp"
+        app:inner_text_top_padding="18dp" />
+
+</RelativeLayout>

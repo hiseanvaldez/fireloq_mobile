@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity_Login">
+    <EditText
+        android:id="@+id/tx_email"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="150dp"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        android:hint="Email"/>
+
+    <EditText
+        android:id="@+id/tx_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:width="300dp"
+        android:layout_below="@id/tx_email"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:hint="Password"/>
+
+    <Button
+        android:id="@+id/bt_forgotPass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tx_password"
+        android:layout_alignEnd="@id/tx_password"
+        android:background="@android:color/transparent"
+        android:text="Forgot password?"
+        android:layout_marginBottom="20dp"
+        android:textColor="@color/colorAccent"
+        android:textSize="10sp" />
+
+    <Button
+        android:id="@+id/bt_login"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/bt_forgotPass"
+        android:text="Sign in"
+        android:background="@color/colorAccent"
+        android:textColor="#FFF"/>
+
+    <Button
+        android:id="@+id/bt_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/bt_login"
+        android:text="Create an account"
+        android:background="@android:color/transparent"
+        android:textSize="10sp"
+        android:layout_alignEnd="@id/bt_login"
+        android:textColor="@color/colorAccent"/>
+</RelativeLayout>

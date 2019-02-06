@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "855414098904",
+    "firebase_url": "https://fireloq-ucbanilad.firebaseio.com",
+    "project_id": "fireloq-ucbanilad",
+    "storage_bucket": "fireloq-ucbanilad.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:855414098904:android:b51ff4f7096cbe41",
+        "android_client_info": {
+          "package_name": "com.hiseanvaldez.fireloq"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "855414098904-64ugjbfqthrul6u2ieb76krfm2pltosg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hiseanvaldez.fireloq",
+            "certificate_hash": "74fd259a6b2cff0cc49572b49a4215fe7c28bab4"
+          }
+        },
+        {
+          "client_id": "855414098904-vp3ltv5jls1qcf9f0kl3ptmap5bugrpd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuxrXJ9SE1LHJ5WZ8SSB__MPK6xMmXWSs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "855414098904-vp3ltv5jls1qcf9f0kl3ptmap5bugrpd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
