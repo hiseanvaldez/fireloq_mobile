@@ -117,7 +117,12 @@ public class Fragment_Home extends Fragment implements View.OnClickListener{
 
     private void setup(){
         btn_on.setVisibility(View.GONE);
-        bluetoothSPP.autoConnect("FIRELOQ");
+        try {
+            bluetoothSPP.autoConnect("FIRELOQ");
+        }
+        catch (Exception e){
+            Log.e(TAG, "onReceive: ", e );
+        }
         bluetoothSPP.setOnDataReceivedListener(new BluetoothSPP.OnDataReceivedListener() {
             @Override
             public void onDataReceived(byte[] data, String message) {

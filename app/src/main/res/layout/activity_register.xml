@@ -36,7 +36,7 @@
         android:layout_below="@id/tx_password"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:background="@color/colorAccent"
+        android:background="@color/colorAccentDark"
         android:text="Sign up"
         android:textColor="#FFF" />
 
@@ -49,5 +49,5 @@
         android:layout_marginTop="20dp"
         android:background="@android:color/transparent"
         android:text="Already a member?"
-        android:textColor="@color/colorAccent" />
+        android:textColor="@color/colorAccentDark" />
 </RelativeLayout>

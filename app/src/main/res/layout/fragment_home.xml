@@ -9,13 +9,13 @@
 
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="267dp"
-        android:layout_height="251dp"
+        android:layout_width="275dp"
+        android:layout_height="275dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
-        android:layout_marginTop="117dp"
-        android:src="@drawable/fireloqlogo" />
+        android:layout_margin="60dp"
+        android:src="@drawable/logo_fireloq" />
 
     <Button
         android:id="@+id/btn_turnOnBT"
@@ -50,8 +50,8 @@
         android:layout_marginEnd="20dp"
         app:button_background="@drawable/my_circle"
         app:button_bottom_padding="20dp"
-        app:button_image_disabled="@drawable/ic_lock_open_black_24dp"
-        app:button_image_enabled="@drawable/ic_lock_outline_black_24dp"
+        app:button_image_disabled="@drawable/lock_open"
+        app:button_image_enabled="@drawable/lock_close"
         app:button_left_padding="20dp"
         app:button_right_padding="20dp"
         app:button_top_padding="20dp"
@@ -61,5 +61,4 @@
         app:inner_text_color="@android:color/white"
         app:inner_text_size="17sp"
         app:inner_text_top_padding="18dp" />
-
 </RelativeLayout>

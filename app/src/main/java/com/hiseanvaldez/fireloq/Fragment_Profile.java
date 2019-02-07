@@ -29,7 +29,6 @@ public class Fragment_Profile extends Fragment implements View.OnClickListener {
         status = view.findViewById(R.id.tv_status);
         details = view.findViewById(R.id.tv_details);
 
-        view.findViewById(R.id.btn_logout).setOnClickListener(this);
         return view;
     }
 
@@ -61,11 +60,6 @@ public class Fragment_Profile extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.btn_logout:
-            {
-                mAuth.signOut();
-                updateUI(null);
-            }
         }
     }
 }

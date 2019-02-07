@@ -9,7 +9,6 @@
     tools:context=".Activity_Main"
     tools:openDrawer="start">
 
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -36,7 +35,6 @@
             android:layout_alignParentBottom="true"
             android:background="?android:attr/windowBackground"
             app:menu="@menu/menu_nav_bottom" />
-
     </RelativeLayout>
 
     <android.support.design.widget.NavigationView
@@ -45,20 +43,5 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:headerLayout="@layout/nav_header"
-        app:menu="@menu/menu_nav_drawer">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:orientation="vertical"
-            android:padding="16dp">
-            <TextView
-                android:id="@+id/logout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Log out" />
-
-        </LinearLayout>
-    </android.support.design.widget.NavigationView>
+        app:menu="@menu/menu_nav_drawer" />
 </android.support.v4.widget.DrawerLayout>

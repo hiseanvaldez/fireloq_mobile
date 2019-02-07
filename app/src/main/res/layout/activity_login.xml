@@ -1,17 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activity_Login">
 
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="275dp"
+        android:layout_height="275dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="80dp"
+        android:src="@drawable/logo_fireloq" />
+
     <EditText
+        android:layout_below="@id/logo"
         android:id="@+id/tx_email"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="40dp"
         android:ems="10"
         android:hint="Email"
         android:inputType="textEmailAddress" />
@@ -37,7 +47,7 @@
         android:layout_marginBottom="20dp"
         android:background="@android:color/transparent"
         android:text="Forgot password?"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/colorAccentDark"
         android:textSize="10sp" />
 
     <Button
@@ -46,7 +56,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/bt_forgotPass"
         android:layout_centerHorizontal="true"
-        android:background="@color/colorAccent"
+        android:background="@color/colorAccentDark"
         android:text="Sign in"
         android:textColor="#FFF" />
 
@@ -59,6 +69,6 @@
         android:layout_centerHorizontal="true"
         android:background="@android:color/transparent"
         android:text="Create an account"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/colorAccentDark"
         android:textSize="10sp" />
 </RelativeLayout>

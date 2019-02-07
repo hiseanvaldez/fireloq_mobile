@@ -5,7 +5,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.hiseanvaldez.fireloq"
-        minSdkVersion 21
+        minSdkVersion 24
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -33,6 +33,6 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:16.1.0'
 
     implementation 'com.akexorcist:bluetoothspp:1.0.0'
-
     implementation 'com.ebanx:swipe-button:0.8.3'
+    implementation 'de.hdodenhof:circleimageview:3.0.0'
 }
