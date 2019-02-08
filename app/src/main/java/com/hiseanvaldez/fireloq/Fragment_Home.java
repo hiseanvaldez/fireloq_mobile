@@ -51,7 +51,7 @@ public class Fragment_Home extends Fragment implements View.OnClickListener{
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        final View view = inflater.inflate(R.layout.fragment_home, container, false);
         main = (Activity_Main)getActivity();
 
         mAuth = main.getMAuth();
@@ -64,8 +64,8 @@ public class Fragment_Home extends Fragment implements View.OnClickListener{
         swipeButton.setOnStateChangeListener(new OnStateChangeListener() {
             @Override
             public void onStateChange(boolean active) {
-                //Toast.makeText(Activity_Home.this, "Active : "+active, Toast.LENGTH_SHORT).show();
-                parseMessage("10.368566,123.943868");
+                Toast.makeText(getContext(), "Active : "+active, Toast.LENGTH_SHORT).show();
+                parseMessage("10.343246,123.913942");
             }
         });
 
@@ -128,24 +128,21 @@ public class Fragment_Home extends Fragment implements View.OnClickListener{
             public void onDataReceived(byte[] data, String message) {
                 String currentText = tv_stream.getText().toString();
                 tv_stream.setText(message + "\n" + currentText);
-                parseMessage(message);
             }
         });
     }
 
     private void parseMessage(String message){
-        String[] coordinate = message.split(",");
-        String latitude, longitude;
-        longitude = coordinate[0];
-        latitude = coordinate[1];
-        insertToFirestore(longitude, latitude);
+        String[] coordinates = message.split(",");
+        insertToFirestore(coordinates[0], coordinates[1]);
     }
 
     private void insertToFirestore(String longitude, String latitude){
         Map<String, Object> notif = new HashMap<>();
         notif.put("datetime", new Timestamp(new Date()));
-        notif.put("coordinates", new GeoPoint(Double.parseDouble(longitude), Double.parseDouble(latitude)));
         notif.put("user_id", mAuth.getUid());
+        notif.put("status", "sent");
+        notif.put("coordinates", new GeoPoint(Double.parseDouble(longitude), Double.parseDouble(latitude)));
 
         // Add a new document with a generated ID
         mDatabase.collection("notifications")
