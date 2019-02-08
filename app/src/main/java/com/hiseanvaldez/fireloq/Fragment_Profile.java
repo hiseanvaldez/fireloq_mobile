@@ -47,7 +47,7 @@ public class Fragment_Profile extends Fragment implements View.OnClickListener {
 
     private void updateUI(FirebaseUser user) {
         if (user != null) {
-            status.setText(getString(R.string.emailpassword_status_fmt,user.getEmail(), user.isEmailVerified()));
+            status.setText(user.getEmail());
             details.setText(getString(R.string.firebase_status_fmt, user.getUid()));
         }
         else {

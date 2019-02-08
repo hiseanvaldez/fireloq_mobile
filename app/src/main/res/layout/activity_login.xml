@@ -16,10 +16,10 @@
         android:src="@drawable/logo_fireloq" />
 
     <EditText
-        android:layout_below="@id/logo"
         android:id="@+id/tx_email"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:layout_below="@id/logo"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
         android:ems="10"

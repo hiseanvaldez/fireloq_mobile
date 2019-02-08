@@ -65,8 +65,11 @@ public class Activity_Main extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
             Fragment selectedFragment = null;
-
             switch(menuItem.getItemId()){
+                case R.id.nav_profile:
+                    sideNav.setCheckedItem(R.id.nav_profile);
+                    selectedFragment = new Fragment_Profile();
+                    break;
                 case R.id.nav_logout:
                     mAuth.signOut();
                     Toast.makeText(Activity_Main.this, "Signing out...", Toast.LENGTH_SHORT).show();
@@ -88,11 +91,7 @@ public class Activity_Main extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
             Fragment selectedFragment = null;
-
             switch(menuItem.getItemId()){
-                case R.id.nav_profile:
-                    selectedFragment = new Fragment_Profile();
-                    break;
                 case R.id.nav_home:
                     selectedFragment = new Fragment_Home();
                     break;
