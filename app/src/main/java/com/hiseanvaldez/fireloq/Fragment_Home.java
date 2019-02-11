@@ -37,8 +37,8 @@ import app.akexorcist.bluetotohspp.library.BluetoothState;
 
 import static android.support.constraint.Constraints.TAG;
 
-public class Fragment_Home extends Fragment implements View.OnClickListener{
-    Activity_Main main;
+public class Fragment_Home extends Fragment implements View.OnClickListener {
+    private Activity_Main main;
     private FirebaseAuth mAuth;
     private FirebaseFirestore mDatabase;
 
@@ -47,6 +47,8 @@ public class Fragment_Home extends Fragment implements View.OnClickListener{
     Button btn_on;
     SwipeButton swipeButton;
     IntentFilter filter;
+
+    private long timer;
 
     @Nullable
     @Override
@@ -64,8 +66,8 @@ public class Fragment_Home extends Fragment implements View.OnClickListener{
         swipeButton.setOnStateChangeListener(new OnStateChangeListener() {
             @Override
             public void onStateChange(boolean active) {
-                Toast.makeText(getContext(), "Active : "+active, Toast.LENGTH_SHORT).show();
-                parseMessage("10.343246,123.913942");
+                Toast.makeText(getContext(), "Active : " + active, Toast.LENGTH_SHORT).show();
+                parseMessage("10.338335,123.911989,0");
             }
         });
 
@@ -78,7 +80,7 @@ public class Fragment_Home extends Fragment implements View.OnClickListener{
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         main.registerReceiver(mReceiver, filter);
-        if (currentUser == null){
+        if (currentUser == null) {
             startActivity(new Intent(getActivity(), Activity_Login.class));
             main.finish();
         }
@@ -87,11 +89,10 @@ public class Fragment_Home extends Fragment implements View.OnClickListener{
     @Override
     public void onResume() {
         super.onResume();
-        if(!bluetoothSPP.isBluetoothEnabled()) {
+        if (!bluetoothSPP.isBluetoothEnabled()) {
             btn_on.setVisibility(View.VISIBLE);
-        }
-        else {
-            if(!bluetoothSPP.isServiceAvailable()){
+        } else {
+            if (!bluetoothSPP.isServiceAvailable()) {
                 bluetoothSPP.setupService();
                 bluetoothSPP.startService(BluetoothState.DEVICE_OTHER);
                 setup();
@@ -115,50 +116,51 @@ public class Fragment_Home extends Fragment implements View.OnClickListener{
         super.onDestroy();
     }
 
-    private void setup(){
+    private void setup() {
         btn_on.setVisibility(View.GONE);
         try {
             bluetoothSPP.autoConnect("FIRELOQ");
-        }
-        catch (Exception e){
-            Log.e(TAG, "onReceive: ", e );
+        } catch (Exception e) {
+            Log.e(TAG, "onReceive: ", e);
         }
         bluetoothSPP.setOnDataReceivedListener(new BluetoothSPP.OnDataReceivedListener() {
             @Override
             public void onDataReceived(byte[] data, String message) {
                 String currentText = tv_stream.getText().toString();
                 tv_stream.setText(message + "\n" + currentText);
+                parseMessage(message);
             }
         });
     }
 
-    private void parseMessage(String message){
+    private void parseMessage(String message) {
         String[] coordinates = message.split(",");
-        insertToFirestore(coordinates[0], coordinates[1]);
+        if (Long.parseLong(coordinates[2]) - timer > 500) {
+            writeNotification(coordinates[0], coordinates[1], coordinates[2]);
+            timer = Long.parseLong(coordinates[2]);
+        }
     }
 
-    private void insertToFirestore(String longitude, String latitude){
-        Map<String, Object> notif = new HashMap<>();
-        notif.put("datetime", new Timestamp(new Date()));
-        notif.put("user_id", mAuth.getUid());
-        notif.put("status", "sent");
-        notif.put("coordinates", new GeoPoint(Double.parseDouble(longitude), Double.parseDouble(latitude)));
+    private void writeNotification(String latitude, String longitude, String timer) {
+        Map<String, Object> notification = new HashMap<>();
+        notification.put("datetime", new Timestamp(new Date()));
+        notification.put("user_id", mAuth.getUid());
+        notification.put("status", "sent");
+        notification.put("timer", Long.parseLong(timer));
+        notification.put("coordinates", new GeoPoint(Double.parseDouble(latitude), Double.parseDouble(longitude)));
 
-        // Add a new document with a generated ID
         mDatabase.collection("notifications")
-                .add(notif)
+                .add(notification)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
                         Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-                        Toast.makeText(getContext(),"added " + documentReference.getId(), Toast.LENGTH_LONG).show();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.w(TAG, "Error adding document", e);
-                        Toast.makeText(getContext(),"not added", Toast.LENGTH_LONG).show();
                     }
                 });
     }
@@ -168,10 +170,10 @@ public class Fragment_Home extends Fragment implements View.OnClickListener{
         public void onReceive(Context context, Intent intent) {
             final String action = intent.getAction();
 
-            if(action.equals(BluetoothAdapter.ACTION_STATE_CHANGED)){
+            if (action.equals(BluetoothAdapter.ACTION_STATE_CHANGED)) {
                 final int state = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, BluetoothAdapter.ERROR);
 
-                switch (state){
+                switch (state) {
                     case BluetoothAdapter.STATE_OFF: {
                         btn_on.setVisibility(View.VISIBLE);
                         bluetoothSPP.stopService();
@@ -179,9 +181,8 @@ public class Fragment_Home extends Fragment implements View.OnClickListener{
                     case BluetoothAdapter.STATE_ON: {
                         try {
                             bluetoothSPP.autoConnect("FIRELOQ");
-                        }
-                        catch (Exception e){
-                            Log.e(TAG, "onReceive: ", e );
+                        } catch (Exception e) {
+                            Log.e(TAG, "onReceive: ", e);
                         }
                         btn_on.setVisibility(View.GONE);
                     }
@@ -192,9 +193,8 @@ public class Fragment_Home extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.btn_turnOnBT:
-            {
+        switch (v.getId()) {
+            case R.id.btn_turnOnBT: {
                 bluetoothSPP.enable();
             }
         }

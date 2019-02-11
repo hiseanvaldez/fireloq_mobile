@@ -6,6 +6,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -17,11 +18,13 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class Activity_Main extends AppCompatActivity {
-    private DrawerLayout drawerLayout;
+
     private FirebaseAuth mAuth;
-    BottomNavigationView bottomNav;
-    NavigationView sideNav;
-    Toolbar toolbar;
+
+    private DrawerLayout drawerLayout;
+    private Toolbar toolbar;
+    private BottomNavigationView bottomNav;
+    private NavigationView sideNav;
 
 
     @Override
@@ -31,13 +34,13 @@ public class Activity_Main extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
         drawerLayout = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.nav_drawer_open, R.string.nav_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         sideNav = findViewById(R.id.nav_navigationView);
         sideNav.setNavigationItemSelectedListener(sideNavListener);
@@ -45,10 +48,10 @@ public class Activity_Main extends AppCompatActivity {
         bottomNav = findViewById(R.id.nav_bottomNavigationView);
         bottomNav.setOnNavigationItemSelectedListener(bottomNavListener);
 
-        if(savedInstanceState == null){
+        if (savedInstanceState == null) {
             sideNav.setCheckedItem(R.id.nav_home);
             bottomNav.setSelectedItemId(R.id.nav_home);
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new Fragment_Home()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Fragment_Home()).commit();
         }
     }
 
@@ -57,7 +60,7 @@ public class Activity_Main extends AppCompatActivity {
         super.onStart();
     }
 
-    public  FirebaseAuth getMAuth(){
+    public FirebaseAuth getMAuth() {
         return mAuth;
     }
 
@@ -65,23 +68,23 @@ public class Activity_Main extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
             Fragment selectedFragment = null;
-            switch(menuItem.getItemId()){
+            switch (menuItem.getItemId()) {
                 case R.id.nav_profile:
                     sideNav.setCheckedItem(R.id.nav_profile);
                     selectedFragment = new Fragment_Profile();
                     break;
                 case R.id.nav_logout:
+                    new Firestore_WriteLog(mAuth, "Log Out");
                     mAuth.signOut();
                     Toast.makeText(Activity_Main.this, "Signing out...", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(Activity_Main.this, Activity_Login.class));
                     finish();
             }
             drawerLayout.closeDrawer(GravityCompat.START);
-            if(selectedFragment != null){
+            if (selectedFragment != null) {
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
                 return true;
-            }
-            else{
+            } else {
                 return false;
             }
         }
@@ -91,7 +94,7 @@ public class Activity_Main extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
             Fragment selectedFragment = null;
-            switch(menuItem.getItemId()){
+            switch (menuItem.getItemId()) {
                 case R.id.nav_home:
                     selectedFragment = new Fragment_Home();
                     break;
@@ -99,11 +102,10 @@ public class Activity_Main extends AppCompatActivity {
                     selectedFragment = new Fragment_Logs();
                     break;
             }
-            if(selectedFragment != null){
+            if (selectedFragment != null) {
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
                 return true;
-            }
-            else{
+            } else {
                 return false;
             }
         }
@@ -111,10 +113,9 @@ public class Activity_Main extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
-        }
-        else {
+        } else {
             super.onBackPressed();
         }
     }
