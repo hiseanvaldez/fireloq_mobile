@@ -3,22 +3,22 @@ package com.hiseanvaldez.fireloq;
 import com.google.firebase.Timestamp;
 
 public class Model_Logs {
-    private String logTitle;
-    private Timestamp logDatetime;
+    public String action;
+    public Timestamp datetime;
 
     public Model_Logs() {
     }
 
-    public Model_Logs(String logTitle, Timestamp logDatetime) {
-        this.logTitle = logTitle;
-        this.logDatetime = logDatetime;
+    public Model_Logs(String action, Timestamp datetime) {
+        this.action = action;
+        this.datetime = datetime;
     }
 
-    public String getLogTitle() {
-        return logTitle;
+    public String getAction() {
+        return action;
     }
 
-    public Timestamp getLogDatetime() {
-        return logDatetime;
+    public Timestamp getDatetime() {
+        return datetime;
     }
 }
