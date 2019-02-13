@@ -36,17 +36,17 @@ import app.akexorcist.bluetotohspp.library.BluetoothSPP;
 import app.akexorcist.bluetotohspp.library.BluetoothState;
 
 import static android.support.constraint.Constraints.TAG;
+import static android.view.View.getDefaultSize;
 
 public class Fragment_Home extends Fragment implements View.OnClickListener {
     private Activity_Main main;
     private FirebaseAuth mAuth;
     private FirebaseFirestore mDatabase;
-
-    TextView tv_stream;
     BluetoothSPP bluetoothSPP;
     Button btn_on;
     SwipeButton swipeButton;
     IntentFilter filter;
+    Boolean bypass = false;
 
     private long timer;
 
@@ -59,15 +59,18 @@ public class Fragment_Home extends Fragment implements View.OnClickListener {
         mAuth = main.getMAuth();
         mDatabase = FirebaseFirestore.getInstance();
         bluetoothSPP = new BluetoothSPP(getContext());
-        tv_stream = view.findViewById(R.id.tv_stream);
         btn_on = view.findViewById(R.id.btn_turnOnBT);
         btn_on.setOnClickListener(this);
         swipeButton = view.findViewById(R.id.swipe_btn);
         swipeButton.setOnStateChangeListener(new OnStateChangeListener() {
             @Override
             public void onStateChange(boolean active) {
-                Toast.makeText(getContext(), "Active : " + active, Toast.LENGTH_SHORT).show();
-                parseMessage("10.338335,123.911989,0");
+                if(active){
+                    bypass = true;
+                }
+                else{
+                    bypass = false;
+                }
             }
         });
 
@@ -126,8 +129,6 @@ public class Fragment_Home extends Fragment implements View.OnClickListener {
         bluetoothSPP.setOnDataReceivedListener(new BluetoothSPP.OnDataReceivedListener() {
             @Override
             public void onDataReceived(byte[] data, String message) {
-                String currentText = tv_stream.getText().toString();
-                tv_stream.setText(message + "\n" + currentText);
                 parseMessage(message);
             }
         });
@@ -148,6 +149,12 @@ public class Fragment_Home extends Fragment implements View.OnClickListener {
         notification.put("status", "sent");
         notification.put("timer", Long.parseLong(timer));
         notification.put("coordinates", new GeoPoint(Double.parseDouble(latitude), Double.parseDouble(longitude)));
+        if(bypass){
+            notification.put("type","quiet");
+        }
+        else{
+            notification.put("type","loud");
+        }
 
         mDatabase.collection("notifications")
                 .add(notification)
@@ -163,6 +170,8 @@ public class Fragment_Home extends Fragment implements View.OnClickListener {
                         Log.w(TAG, "Error adding document", e);
                     }
                 });
+
+        new Firestore_WriteLog(mAuth, "Log In");
     }
 
     private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
