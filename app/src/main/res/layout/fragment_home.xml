@@ -28,16 +28,6 @@
         android:padding="15dp"
         android:text="FireloQ isn't syncing because bluetooth is off." />
 
-    <TextView
-        android:id="@+id/tv_stream"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/btn_turnOnBT"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="154dp"
-        android:text="TextView" />
-
     <com.ebanx.swipebtn.SwipeButton
         android:id="@+id/swipe_btn"
         android:layout_width="300dp"
