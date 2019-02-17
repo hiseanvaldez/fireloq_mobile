@@ -105,7 +105,6 @@ public class Activity_Login extends AppCompatActivity implements View.OnClickLis
                 break;
             case R.id.bt_register:
                 startActivity(new Intent(Activity_Login.this, Activity_Register.class));
-                finish();
                 break;
             case R.id.bt_forgotPass:
                 startActivity(new Intent(Activity_Login.this, Activity_RetrievePassword.class));

@@ -6,48 +6,235 @@
     android:layout_height="match_parent"
     tools:context=".Activity_Register">
 
-    <EditText
-        android:id="@+id/tx_email"
-        android:layout_width="300dp"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/tl_email"
+        android:layout_width="400dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="150dp"
-        android:ems="10"
-        android:hint="Email"
-        android:inputType="textEmailAddress" />
+        android:layout_marginTop="60dp">
 
-    <EditText
-        android:id="@+id/tx_password"
-        android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/tx_email"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:autofillHints="email"
+            android:ems="10"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/tl_password"
+        android:layout_width="400dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tx_email"
+        android:layout_below="@id/tl_email"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:width="300dp"
-        android:ems="10"
-        android:hint="Password"
-        android:inputType="textPassword" />
+        android:layout_marginTop="15dp"
+        app:passwordToggleEnabled="true">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/tx_password"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:autofillHints="password"
+            android:ems="10"
+            android:hint="@string/password"
+            android:inputType="textPassword" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/tl_fullname"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tl_password"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp">
+
+        <EditText
+            android:id="@+id/tx_fullname"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:autofillHints="firstName"
+            android:ems="10"
+            android:hint="@string/full_name"
+            android:inputType="text" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/tl_dateOfBirth"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tl_fullname"
+        android:layout_alignStart="@id/tl_fullname"
+        android:layout_marginTop="15dp">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/tx_dateOfBirth"
+            android:layout_width="190dp"
+            android:layout_height="match_parent"
+            android:autofillHints="firstName"
+            android:clickable="true"
+            android:editable="false"
+            android:ems="10"
+            android:hint="@string/date_of_birth" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/tl_gender"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tl_fullname"
+        android:layout_alignEnd="@id/tl_fullname"
+        android:layout_marginTop="15dp"
+        android:background="?attr/editTextBackground">
+
+        <Spinner
+            android:id="@+id/sp_gender"
+            android:layout_width="190dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/tl_street"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tl_gender"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp">
+
+        <EditText
+            android:id="@+id/tx_street"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:autofillHints="firstName"
+            android:ems="10"
+            android:hint="@string/street"
+            android:inputType="text" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/tl_city"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tl_street"
+        android:layout_alignStart="@id/tl_street"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp">
+
+        <EditText
+            android:id="@+id/tx_city"
+            android:layout_width="190dp"
+            android:layout_height="match_parent"
+            android:autofillHints="firstName"
+            android:ems="10"
+            android:hint="@string/city"
+            android:inputType="text" />
+    </android.support.design.widget.TextInputLayout>
+
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/tl_province"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tl_street"
+        android:layout_alignEnd="@id/tl_street"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp">
+
+        <EditText
+            android:id="@+id/tx_province"
+            android:layout_width="190dp"
+            android:layout_height="match_parent"
+            android:autofillHints="firstName"
+            android:ems="10"
+            android:hint="@string/province"
+            android:inputType="text" />
+    </android.support.design.widget.TextInputLayout>
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/tl_licenseNumber"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tl_city"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp">
+
+        <EditText
+            android:id="@+id/tx_licenseNumber"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:autofillHints="firstName"
+            android:ems="10"
+            android:hint="License Number"
+            android:inputType="text" />
+    </android.support.design.widget.TextInputLayout>
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/tl_mobile"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tl_licenseNumber"
+        android:layout_alignStart="@id/tl_licenseNumber"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp">
+
+        <EditText
+            android:id="@+id/tx_mobile"
+            android:layout_width="190dp"
+            android:layout_height="match_parent"
+            android:autofillHints="firstName"
+            android:ems="10"
+            android:hint="@string/mobile_number"
+            android:inputType="text" />
+    </android.support.design.widget.TextInputLayout>
+
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/tl_landline"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tl_licenseNumber"
+        android:layout_alignEnd="@id/tl_licenseNumber"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp">
+
+        <EditText
+            android:id="@+id/tx_landline"
+            android:layout_width="190dp"
+            android:layout_height="match_parent"
+            android:autofillHints="firstName"
+            android:ems="10"
+            android:hint="@string/landline_number"
+            android:inputType="text" />
+    </android.support.design.widget.TextInputLayout>
+    <Button
+        android:id="@+id/bt_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/bt_register"
+        android:background="@android:color/transparent"
+        android:text="@string/already_a_member"
+        android:textColor="@color/colorAccentDark"
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/bt_register"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tx_password"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_alignParentBottom="true"
         android:background="@color/colorAccentDark"
-        android:text="Sign up"
-        android:textColor="#FFF" />
+        android:text="@string/sign_up"
+        android:textColor="#FFF"
+        android:textSize="25sp" />
 
-    <Button
-        android:id="@+id/bt_login"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/bt_register"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:background="@android:color/transparent"
-        android:text="Already a member?"
-        android:textColor="@color/colorAccentDark" />
 </RelativeLayout>
