@@ -58,4 +58,15 @@
         <item>Male</item>
         <item>Female</item>
     </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add_new_gun">Add New Gun</string>
+    <string name="manufacturer">Manufacturer</string>
+    <string name="model">Model</string>
+    <string name="add">Add</string>
+    <string name="serial_number">Serial Number</string>
+    <string name="registration_number">Registration Number</string>
+    <string name="expiry_date">Expiry Date</string>
+    <string name="registration_date">Registration Date</string>
 </resources>

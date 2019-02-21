@@ -67,6 +67,9 @@ public class Fragment_Home extends Fragment implements View.OnClickListener {
                 } else {
                     bypass = false;
                 }
+
+                long time = System.nanoTime();
+                parseMessage(String.valueOf((Math.random() * ((90 - (-90)) + 1)) + (-90)) + "," + String.valueOf((Math.random() * ((180 - (-180)) + 1)) + (-180))+ "," +time);
             }
         });
 

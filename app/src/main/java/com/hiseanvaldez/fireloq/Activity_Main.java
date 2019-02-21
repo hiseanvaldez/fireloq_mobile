@@ -101,6 +101,9 @@ public class Activity_Main extends AppCompatActivity {
                 case R.id.nav_log:
                     selectedFragment = new Fragment_Logs();
                     break;
+                case R.id.nav_gun:
+                    selectedFragment = new Fragment_Guns();
+                    break;
             }
             if (selectedFragment != null) {
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
