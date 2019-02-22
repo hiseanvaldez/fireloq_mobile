@@ -45,7 +45,6 @@
     <string name="last_name">Last Name</string>
     <string name="sign_up">Sign up</string>
     <string name="already_a_member">Already a member?</string>
-    <string name="fireloq_logo">FireloQ Logo</string>
     <string name="full_name">Full Name</string>
     <string name="date_of_birth">Date of Birth</string>
     <string name="province">Province</string>
@@ -69,4 +68,7 @@
     <string name="registration_number">Registration Number</string>
     <string name="expiry_date">Expiry Date</string>
     <string name="registration_date">Registration Date</string>
+    <string name="fireloq_isn_t_syncing_because_bluetooth_is_off">FireloQ isn\'t syncing because bluetooth is off.</string>
+    <string name="fireloq_logo">FireloQ Logo</string>
+    <string name="retrieve_password">Retrieve Password</string>
 </resources>

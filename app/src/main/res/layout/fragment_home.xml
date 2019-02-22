@@ -5,52 +5,58 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="?attr/actionBarSize"
+    android:background="#f0f0f0"
     tools:context=".Fragment_Home">
 
-    <ImageView
-        android:id="@+id/logo"
-        android:layout_width="275dp"
-        android:layout_height="275dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center"
-        android:layout_margin="60dp"
-        android:src="@drawable/logo_fireloq" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="120dp">
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:contentDescription="@string/fireloq_logo"
+            android:src="@drawable/logo_fireloq" />
+
+        <com.ebanx.swipebtn.SwipeButton
+            android:id="@+id/swipe_btn"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/logo"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            app:button_background="@drawable/my_circle"
+            app:button_bottom_padding="20dp"
+            app:button_image_disabled="@drawable/lock_open"
+            app:button_image_enabled="@drawable/lock_close"
+            app:button_left_padding="20dp"
+            app:button_right_padding="20dp"
+            app:button_top_padding="20dp"
+            app:inner_text="Bypass Mode"
+            app:inner_text_background="@drawable/shape_rounded"
+            app:inner_text_bottom_padding="18dp"
+            app:inner_text_color="@android:color/white"
+            app:inner_text_size="18sp"
+            app:inner_text_top_padding="18dp" />
+    </RelativeLayout>
+
 
     <Button
         android:id="@+id/btn_turnOnBT"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center"
-        android:layout_marginTop="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorAccentDark"
         android:padding="15dp"
-        android:text="FireloQ isn't syncing because bluetooth is off." />
+        android:layout_margin="25dp"
+        android:elevation="8dp"
+        android:text="@string/fireloq_isn_t_syncing_because_bluetooth_is_off"
+        android:textColor="#FFFFFF" />
 
-    <com.ebanx.swipebtn.SwipeButton
-        android:id="@+id/swipe_btn"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="400dp"
-        android:layout_marginEnd="20dp"
-        app:button_background="@drawable/my_circle"
-        app:button_bottom_padding="20dp"
-        app:button_image_disabled="@drawable/lock_open"
-        app:button_image_enabled="@drawable/lock_close"
-        app:button_left_padding="20dp"
-        app:button_right_padding="20dp"
-        app:button_top_padding="20dp"
-        app:inner_text="Bypass Mode"
-        app:inner_text_background="@drawable/shape_rounded"
-        app:inner_text_bottom_padding="18dp"
-        app:inner_text_color="@android:color/white"
-        app:inner_text_size="17sp"
-        app:inner_text_top_padding="18dp">
 
-    </com.ebanx.swipebtn.SwipeButton>
 </RelativeLayout>

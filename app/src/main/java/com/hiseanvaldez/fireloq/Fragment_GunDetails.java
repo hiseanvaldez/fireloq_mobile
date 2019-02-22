@@ -13,7 +13,7 @@ public class Fragment_GunDetails extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment__gundetails, container, false);
+        View view = inflater.inflate(R.layout.fragment_gundetails, container, false);
 
 
         return view;

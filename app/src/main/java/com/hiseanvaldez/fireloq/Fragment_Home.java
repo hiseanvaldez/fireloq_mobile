@@ -13,6 +13,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 
 import com.ebanx.swipebtn.OnStateChangeListener;
@@ -24,7 +26,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.GeoPoint;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -40,13 +41,13 @@ public class Fragment_Home extends Fragment implements View.OnClickListener {
     private Activity_Main main;
     private FirebaseAuth mAuth;
     private FirebaseFirestore mDatabase;
-    BluetoothSPP bluetoothSPP;
-    Button btn_on;
-    SwipeButton swipeButton;
-    IntentFilter filter;
-    Boolean bypass = false;
+    private BluetoothSPP bluetoothSPP;
+    private Button btn_on;
+    private Boolean bypass = false;
 
     private long timer;
+
+    Animation show, hide;
 
     @Nullable
     @Override
@@ -54,23 +55,26 @@ public class Fragment_Home extends Fragment implements View.OnClickListener {
         final View view = inflater.inflate(R.layout.fragment_home, container, false);
         main = (Activity_Main) getActivity();
 
-        mAuth = main.getMAuth();
+        mAuth = Objects.requireNonNull(main).getMAuth();
         mDatabase = FirebaseFirestore.getInstance();
         bluetoothSPP = new BluetoothSPP(getContext());
+        show = AnimationUtils.loadAnimation(getContext(), R.anim.show);
+        hide = AnimationUtils.loadAnimation(getContext(), R.anim.hide);
         btn_on = view.findViewById(R.id.btn_turnOnBT);
         btn_on.setOnClickListener(this);
-        swipeButton = view.findViewById(R.id.swipe_btn);
+        SwipeButton swipeButton = view.findViewById(R.id.swipe_btn);
         swipeButton.setOnStateChangeListener(new OnStateChangeListener() {
             @Override
             public void onStateChange(boolean active) {
-            bypass = active;
+                bypass = active;
 
-            long time = System.nanoTime();
-            parseMessage(String.valueOf((Math.random() * ((90 - (-90)) + 1)) + (-90)) + "," + String.valueOf((Math.random() * ((180 - (-180)) + 1)) + (-180))+ "," +time);
+                long time = System.nanoTime();
+                parseMessage(String.valueOf((Math.random() * ((90 - (-90)) + 1)) + (-90)) + "," + String.valueOf((Math.random() * ((180 - (-180)) + 1)) + (-180)) + "," + time);
             }
         });
 
-        filter = new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED);
+        IntentFilter filter = new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED);
+        main.registerReceiver(mReceiver, filter);
         return view;
     }
 
@@ -78,7 +82,6 @@ public class Fragment_Home extends Fragment implements View.OnClickListener {
     public void onStart() {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        main.registerReceiver(mReceiver, filter);
         if (currentUser == null) {
             startActivity(new Intent(getActivity(), Activity_Login.class));
             main.finish();
@@ -107,12 +110,12 @@ public class Fragment_Home extends Fragment implements View.OnClickListener {
     @Override
     public void onStop() {
         super.onStop();
-        main.unregisterReceiver(mReceiver);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+        main.unregisterReceiver(mReceiver);
     }
 
     private void setup() {
@@ -170,27 +173,32 @@ public class Fragment_Home extends Fragment implements View.OnClickListener {
         new Firestore_WriteLog(mAuth, "Gun Fired");
     }
 
+
     private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             final String action = intent.getAction();
 
             if (Objects.equals(action, BluetoothAdapter.ACTION_STATE_CHANGED)) {
-                final int state = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, BluetoothAdapter.ERROR);
-
+                final int state = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE,
+                        BluetoothAdapter.ERROR);
                 switch (state) {
-                    case BluetoothAdapter.STATE_OFF: {
+                    case BluetoothAdapter.STATE_OFF:
+                        btn_on.startAnimation(show);
+                        btn_on.setClickable(true);
                         btn_on.setVisibility(View.VISIBLE);
                         bluetoothSPP.stopService();
-                    }
-                    case BluetoothAdapter.STATE_ON: {
+                        break;
+                    case BluetoothAdapter.STATE_ON:
                         try {
                             bluetoothSPP.autoConnect("FIRELOQ");
                         } catch (Exception e) {
                             Log.e(TAG, "onReceive: ", e);
                         }
+                        btn_on.startAnimation(hide);
+                        btn_on.setClickable(false);
                         btn_on.setVisibility(View.GONE);
-                    }
+                        break;
                 }
             }
         }

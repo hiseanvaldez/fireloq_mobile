@@ -42,11 +42,6 @@ public class Activity_Login extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onStart() {
         super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
-            startActivity(new Intent(Activity_Login.this, Activity_Main.class));
-            finish();
-        }
     }
 
     private void signIn(String email, String password) {

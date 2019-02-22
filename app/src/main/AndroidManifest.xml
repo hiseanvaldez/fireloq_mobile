@@ -18,16 +18,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Activity_Login">
+        <activity android:name=".Activity_Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Activity_Login"/>
         <activity
             android:name=".Activity_Main"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Activity_Register" />
         <activity android:name=".Activity_RetrievePassword" />
     </application>
+
 </manifest>
