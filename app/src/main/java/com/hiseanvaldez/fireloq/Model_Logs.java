@@ -3,10 +3,10 @@ package com.hiseanvaldez.fireloq;
 import com.google.firebase.Timestamp;
 
 public class Model_Logs {
-    public String action;
-    public String user_id;
-    public String log_type;
-    public Timestamp datetime;
+    private String action;
+    private String user_id;
+    private String log_type;
+    private Timestamp datetime;
 
     public Model_Logs() {
     }
@@ -18,19 +18,19 @@ public class Model_Logs {
         this.datetime = datetime;
     }
 
-    public String getUser_id() {
+    String getUser_id() {
         return user_id;
     }
 
-    public String getAction() {
+    String getAction() {
         return action;
     }
 
-    public String getLog_type() {
+    String getLog_type() {
         return log_type;
     }
 
-    public Timestamp getDatetime() {
+    Timestamp getDatetime() {
         return datetime;
     }
 }

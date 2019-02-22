@@ -29,6 +29,7 @@ import com.google.firebase.firestore.GeoPoint;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import app.akexorcist.bluetotohspp.library.BluetoothSPP;
 import app.akexorcist.bluetotohspp.library.BluetoothState;
@@ -62,14 +63,10 @@ public class Fragment_Home extends Fragment implements View.OnClickListener {
         swipeButton.setOnStateChangeListener(new OnStateChangeListener() {
             @Override
             public void onStateChange(boolean active) {
-                if (active) {
-                    bypass = true;
-                } else {
-                    bypass = false;
-                }
+            bypass = active;
 
-                long time = System.nanoTime();
-                parseMessage(String.valueOf((Math.random() * ((90 - (-90)) + 1)) + (-90)) + "," + String.valueOf((Math.random() * ((180 - (-180)) + 1)) + (-180))+ "," +time);
+            long time = System.nanoTime();
+            parseMessage(String.valueOf((Math.random() * ((90 - (-90)) + 1)) + (-90)) + "," + String.valueOf((Math.random() * ((180 - (-180)) + 1)) + (-180))+ "," +time);
             }
         });
 
@@ -144,7 +141,7 @@ public class Fragment_Home extends Fragment implements View.OnClickListener {
     private void writeNotification(String latitude, String longitude, String timer) {
         Map<String, Object> notification = new HashMap<>();
         notification.put("datetime", new Timestamp(new Date()));
-        notification.put("user_id", mAuth.getUid());
+        notification.put("user_id", Objects.requireNonNull(mAuth.getUid()));
         notification.put("status", "sent");
         notification.put("timer", Long.parseLong(timer));
         notification.put("latitude", Double.parseDouble(latitude));
@@ -178,7 +175,7 @@ public class Fragment_Home extends Fragment implements View.OnClickListener {
         public void onReceive(Context context, Intent intent) {
             final String action = intent.getAction();
 
-            if (action.equals(BluetoothAdapter.ACTION_STATE_CHANGED)) {
+            if (Objects.equals(action, BluetoothAdapter.ACTION_STATE_CHANGED)) {
                 final int state = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, BluetoothAdapter.ERROR);
 
                 switch (state) {

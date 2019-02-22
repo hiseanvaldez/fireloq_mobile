@@ -14,6 +14,8 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.Objects;
+
 public class Fragment_Profile extends Fragment implements View.OnClickListener {
     Activity_Main main;
     FirebaseAuth mAuth;
@@ -25,7 +27,7 @@ public class Fragment_Profile extends Fragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         main = (Activity_Main)getActivity();
 
-        mAuth = main.getMAuth();
+        mAuth = FirebaseAuth.getInstance();
         status = view.findViewById(R.id.tv_status);
         details = view.findViewById(R.id.tv_details);
 
