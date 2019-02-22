@@ -28,8 +28,6 @@ public class Fragment_Profile extends Fragment implements View.OnClickListener {
         main = (Activity_Main)getActivity();
 
         mAuth = FirebaseAuth.getInstance();
-        status = view.findViewById(R.id.tv_status);
-        details = view.findViewById(R.id.tv_details);
 
         return view;
     }
@@ -37,26 +35,6 @@ public class Fragment_Profile extends Fragment implements View.OnClickListener {
     @Override
     public void onStart() {
         super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser == null){
-            startActivity(new Intent(getActivity(), Activity_Login.class));
-            main.finish();
-        }
-        else {
-            updateUI(currentUser);
-        }
-    }
-
-    private void updateUI(FirebaseUser user) {
-        if (user != null) {
-            status.setText(user.getEmail());
-            details.setText(getString(R.string.firebase_status_fmt, user.getUid()));
-        }
-        else {
-            Toast.makeText(getContext(), "Signing out...", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(getActivity(), Activity_Login.class));
-            main.finish();
-        }
     }
 
     @Override
