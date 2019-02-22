@@ -36,7 +36,7 @@
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="399dp"
+        android:layout_marginTop="400dp"
         android:layout_marginEnd="20dp"
         app:button_background="@drawable/my_circle"
         app:button_bottom_padding="20dp"
@@ -50,5 +50,7 @@
         app:inner_text_bottom_padding="18dp"
         app:inner_text_color="@android:color/white"
         app:inner_text_size="17sp"
-        app:inner_text_top_padding="18dp" />
+        app:inner_text_top_padding="18dp">
+
+    </com.ebanx.swipebtn.SwipeButton>
 </RelativeLayout>

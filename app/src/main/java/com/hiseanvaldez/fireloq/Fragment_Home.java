@@ -14,8 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ebanx.swipebtn.OnStateChangeListener;
 import com.ebanx.swipebtn.SwipeButton;
@@ -31,12 +29,12 @@ import com.google.firebase.firestore.GeoPoint;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import app.akexorcist.bluetotohspp.library.BluetoothSPP;
 import app.akexorcist.bluetotohspp.library.BluetoothState;
 
 import static android.support.constraint.Constraints.TAG;
-import static android.view.View.getDefaultSize;
 
 public class Fragment_Home extends Fragment implements View.OnClickListener {
     private Activity_Main main;
@@ -54,7 +52,7 @@ public class Fragment_Home extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_home, container, false);
-        main = (Activity_Main)getActivity();
+        main = (Activity_Main) getActivity();
 
         mAuth = main.getMAuth();
         mDatabase = FirebaseFirestore.getInstance();
@@ -65,12 +63,10 @@ public class Fragment_Home extends Fragment implements View.OnClickListener {
         swipeButton.setOnStateChangeListener(new OnStateChangeListener() {
             @Override
             public void onStateChange(boolean active) {
-                if(active){
-                    bypass = true;
-                }
-                else{
-                    bypass = false;
-                }
+            bypass = active;
+
+            long time = System.nanoTime();
+            parseMessage(String.valueOf((Math.random() * ((90 - (-90)) + 1)) + (-90)) + "," + String.valueOf((Math.random() * ((180 - (-180)) + 1)) + (-180))+ "," +time);
             }
         });
 
@@ -145,15 +141,15 @@ public class Fragment_Home extends Fragment implements View.OnClickListener {
     private void writeNotification(String latitude, String longitude, String timer) {
         Map<String, Object> notification = new HashMap<>();
         notification.put("datetime", new Timestamp(new Date()));
-        notification.put("user_id", mAuth.getUid());
+        notification.put("user_id", Objects.requireNonNull(mAuth.getUid()));
         notification.put("status", "sent");
         notification.put("timer", Long.parseLong(timer));
-        notification.put("coordinates", new GeoPoint(Double.parseDouble(latitude), Double.parseDouble(longitude)));
-        if(bypass){
-            notification.put("type","quiet");
-        }
-        else{
-            notification.put("type","loud");
+        notification.put("latitude", Double.parseDouble(latitude));
+        notification.put("longitude", Double.parseDouble(longitude));
+        if (bypass) {
+            notification.put("type", "quiet");
+        } else {
+            notification.put("type", "loud");
         }
 
         mDatabase.collection("notifications")
@@ -171,7 +167,7 @@ public class Fragment_Home extends Fragment implements View.OnClickListener {
                     }
                 });
 
-        new Firestore_WriteLog(mAuth, "Log In");
+        new Firestore_WriteLog(mAuth, "Gun Fired");
     }
 
     private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
@@ -179,7 +175,7 @@ public class Fragment_Home extends Fragment implements View.OnClickListener {
         public void onReceive(Context context, Intent intent) {
             final String action = intent.getAction();
 
-            if (action.equals(BluetoothAdapter.ACTION_STATE_CHANGED)) {
+            if (Objects.equals(action, BluetoothAdapter.ACTION_STATE_CHANGED)) {
                 final int state = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, BluetoothAdapter.ERROR);
 
                 switch (state) {

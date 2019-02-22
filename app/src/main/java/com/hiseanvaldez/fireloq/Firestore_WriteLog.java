@@ -13,15 +13,16 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import static android.support.constraint.Constraints.TAG;
 
-public class Firestore_WriteLog {
+class Firestore_WriteLog {
     private FirebaseAuth mAuth;
     private FirebaseFirestore mDatabase;
     private String action;
 
-    public Firestore_WriteLog(FirebaseAuth mAuth, String action) {
+    Firestore_WriteLog(FirebaseAuth mAuth, String action) {
         this.mAuth = mAuth;
         this.action = action;
         mDatabase = FirebaseFirestore.getInstance();
@@ -32,7 +33,7 @@ public class Firestore_WriteLog {
     private void writeLog(){
         Map<String, Object> log = new HashMap<>();
         log.put("datetime", new Timestamp(new Date()));
-        log.put("user_id", mAuth.getUid());
+        log.put("user_id", Objects.requireNonNull(mAuth.getUid()));
         log.put("status", true);
         log.put("log_type", "Mobile");
         log.put("action", action);
@@ -51,13 +52,5 @@ public class Firestore_WriteLog {
                         Log.w(TAG, "Error adding document", e);
                     }
                 });
-    }
-
-    public FirebaseAuth getmAuth() {
-        return mAuth;
-    }
-
-    public String getAction() {
-        return action;
     }
 }

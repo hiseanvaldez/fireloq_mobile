@@ -22,12 +22,7 @@ import com.google.firebase.firestore.Query;
 import java.util.Date;
 
 public class Fragment_Logs extends Fragment {
-    private View view;
     private RecyclerView rv_logs;
-
-    private FirebaseAuth mAuth;
-    private FirebaseFirestore mDatabase;
-    private CollectionReference logRef;
     private Query logQuery;
 
     public Fragment_Logs() {
@@ -36,16 +31,19 @@ public class Fragment_Logs extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_logs, container, false);
+        View view = inflater.inflate(R.layout.fragment_logs, container, false);
 
-        mAuth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseFirestore.getInstance();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseFirestore mDatabase = FirebaseFirestore.getInstance();
 
         rv_logs = view.findViewById(R.id.rv_logs);
         rv_logs.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        logRef = mDatabase.collection("logs");
-        logQuery = logRef.whereEqualTo("user_id", mAuth.getUid()).orderBy("datetime", Query.Direction.DESCENDING).limit(50);
+        CollectionReference logRef = mDatabase.collection("logs");
+        logQuery = logRef
+                .whereEqualTo("user_id", mAuth.getUid())
+                .orderBy("datetime", Query.Direction.DESCENDING)
+                .limit(50);
         return view;
     }
 
@@ -74,8 +72,7 @@ public class Fragment_Logs extends Fragment {
             @Override
             public LogsViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
                 View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_logs, viewGroup, false);
-                LogsViewHolder viewHolder = new LogsViewHolder(view);
-                return viewHolder;
+                return new LogsViewHolder(view);
             }
         };
         rv_logs.setAdapter(adapter);
@@ -85,7 +82,7 @@ public class Fragment_Logs extends Fragment {
     public static class LogsViewHolder extends RecyclerView.ViewHolder {
         TextView tv_logTitle, tv_logDatetime, tv_logUserId;
 
-        public LogsViewHolder(@NonNull View itemView) {
+        LogsViewHolder(@NonNull View itemView) {
             super(itemView);
 
             tv_logTitle = itemView.findViewById(R.id.tv_logTitle);

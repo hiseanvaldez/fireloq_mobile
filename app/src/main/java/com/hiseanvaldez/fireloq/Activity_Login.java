@@ -20,9 +20,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class Activity_Login extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "Activity_Login";
-    private static final int RC_SIGN_IN = 9001;
     private FirebaseAuth mAuth;
-    private FirebaseFirestore mDatabase;
 
     EditText email, password;
 
@@ -32,7 +30,6 @@ public class Activity_Login extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_login);
 
         mAuth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseFirestore.getInstance();
 
         findViewById(R.id.bt_register).setOnClickListener(this);
         findViewById(R.id.bt_login).setOnClickListener(this);
@@ -105,7 +102,6 @@ public class Activity_Login extends AppCompatActivity implements View.OnClickLis
                 break;
             case R.id.bt_register:
                 startActivity(new Intent(Activity_Login.this, Activity_Register.class));
-                finish();
                 break;
             case R.id.bt_forgotPass:
                 startActivity(new Intent(Activity_Login.this, Activity_RetrievePassword.class));

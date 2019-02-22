@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,62 +14,79 @@
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
         android:layout_marginTop="80dp"
+        android:contentDescription="@string/fireloq_logo"
         android:src="@drawable/logo_fireloq" />
 
-    <EditText
-        android:id="@+id/tx_email"
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/tl_email"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/logo"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        android:ems="10"
-        android:hint="Email"
-        android:inputType="textEmailAddress" />
+        android:layout_marginTop="40dp">
 
-    <EditText
-        android:id="@+id/tx_password"
-        android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/tx_email"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:ems="10"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/tl_password"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tx_email"
+        android:layout_below="@id/tl_email"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:width="300dp"
-        android:ems="10"
-        android:hint="Password"
-        android:inputType="textPassword" />
+        app:passwordToggleEnabled="true">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/tx_password"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:ems="10"
+            android:hint="@string/password"
+            android:inputType="textPassword" />
+    </android.support.design.widget.TextInputLayout>
 
     <Button
         android:id="@+id/bt_forgotPass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tx_password"
-        android:layout_alignEnd="@id/tx_password"
-        android:layout_marginBottom="20dp"
+        android:layout_below="@id/tl_password"
+        android:layout_alignStart="@id/tl_password"
+        android:layout_marginTop="10dp"
         android:background="@android:color/transparent"
-        android:text="Forgot password?"
+        android:text="@string/forgot_password"
         android:textColor="@color/colorAccentDark"
-        android:textSize="10sp" />
-
-    <Button
-        android:id="@+id/bt_login"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/bt_forgotPass"
-        android:layout_centerHorizontal="true"
-        android:background="@color/colorAccentDark"
-        android:text="Sign in"
-        android:textColor="#FFF" />
+        android:textSize="12sp" />
 
     <Button
         android:id="@+id/bt_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/bt_login"
-        android:layout_alignEnd="@id/bt_login"
-        android:layout_centerHorizontal="true"
+        android:layout_below="@id/tl_password"
+        android:layout_alignEnd="@id/tl_password"
+        android:layout_marginTop="10dp"
         android:background="@android:color/transparent"
-        android:text="Create an account"
+        android:text="@string/create_an_account"
         android:textColor="@color/colorAccentDark"
-        android:textSize="10sp" />
+        android:textSize="12sp" />
+
+
+    <Button
+        android:id="@+id/bt_login"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorAccentDark"
+        android:text="@string/sign_in"
+        android:textColor="#FFF"
+        android:textSize="25sp" />
+
+
 </RelativeLayout>

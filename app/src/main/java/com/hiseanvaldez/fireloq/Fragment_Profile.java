@@ -14,6 +14,8 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.Objects;
+
 public class Fragment_Profile extends Fragment implements View.OnClickListener {
     Activity_Main main;
     FirebaseAuth mAuth;
@@ -25,9 +27,7 @@ public class Fragment_Profile extends Fragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         main = (Activity_Main)getActivity();
 
-        mAuth = main.getMAuth();
-        status = view.findViewById(R.id.tv_status);
-        details = view.findViewById(R.id.tv_details);
+        mAuth = FirebaseAuth.getInstance();
 
         return view;
     }
@@ -35,26 +35,6 @@ public class Fragment_Profile extends Fragment implements View.OnClickListener {
     @Override
     public void onStart() {
         super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser == null){
-            startActivity(new Intent(getActivity(), Activity_Login.class));
-            main.finish();
-        }
-        else {
-            updateUI(currentUser);
-        }
-    }
-
-    private void updateUI(FirebaseUser user) {
-        if (user != null) {
-            status.setText(user.getEmail());
-            details.setText(getString(R.string.firebase_status_fmt, user.getUid()));
-        }
-        else {
-            Toast.makeText(getContext(), "Signing out...", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(getActivity(), Activity_Login.class));
-            main.finish();
-        }
     }
 
     @Override

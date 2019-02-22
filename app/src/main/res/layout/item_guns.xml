@@ -15,24 +15,24 @@
         android:padding="12dp">
 
         <TextView
-            android:id="@+id/tv_logTitle"
+            android:id="@+id/tv_makeModel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="This is a sample title"
+            android:text="Gun Make + Model"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
 
         <TextView
-            android:id="@+id/tv_logUserId"
+            android:id="@+id/tv_serial"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="This is a sample title"
+            android:text="Serial Number"
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/tv_logDatetime"
+            android:id="@+id/tv_startEnd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="February 11, 2019 at 5:36:23 PM UTC+8"
+            android:text="RegDate - ExpDate"
             android:textSize="16sp" />
     </LinearLayout>
 </android.support.v7.widget.CardView>

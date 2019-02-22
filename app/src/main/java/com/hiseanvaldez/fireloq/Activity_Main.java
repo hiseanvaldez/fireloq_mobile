@@ -23,7 +23,6 @@ public class Activity_Main extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
-    private BottomNavigationView bottomNav;
     private NavigationView sideNav;
 
 
@@ -45,7 +44,7 @@ public class Activity_Main extends AppCompatActivity {
         sideNav = findViewById(R.id.nav_navigationView);
         sideNav.setNavigationItemSelectedListener(sideNavListener);
 
-        bottomNav = findViewById(R.id.nav_bottomNavigationView);
+        BottomNavigationView bottomNav = findViewById(R.id.nav_bottomNavigationView);
         bottomNav.setOnNavigationItemSelectedListener(bottomNavListener);
 
         if (savedInstanceState == null) {
@@ -100,6 +99,9 @@ public class Activity_Main extends AppCompatActivity {
                     break;
                 case R.id.nav_log:
                     selectedFragment = new Fragment_Logs();
+                    break;
+                case R.id.nav_gun:
+                    selectedFragment = new Fragment_Guns();
                     break;
             }
             if (selectedFragment != null) {
