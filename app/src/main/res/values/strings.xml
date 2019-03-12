@@ -46,12 +46,9 @@
     <string name="sign_up">Sign up</string>
     <string name="already_a_member">Already a member?</string>
     <string name="full_name">Full Name</string>
-    <string name="date_of_birth">Date of Birth</string>
     <string name="province">Province</string>
     <string name="city">City</string>
     <string name="street">Street</string>
-    <string name="mobile_number">Mobile Number</string>
-    <string name="landline_number">Landline Number</string>
 
     <string-array name="gender">
         <item>Male</item>
@@ -71,4 +68,14 @@
     <string name="fireloq_isn_t_syncing_because_bluetooth_is_off">FireloQ isn\'t syncing because bluetooth is off.</string>
     <string name="fireloq_logo">FireloQ Logo</string>
     <string name="retrieve_password">Retrieve Password</string>
+    <string name="submit">Submit</string>
+    <string name="modify_profile_details">Modify Profile Details</string>
+    <string name="firstname_lastname">FirstName LastName</string>
+    <string name="firstname_lastname_fireloq_com">firstname.lastname@fireloq.com</string>
+    <string name="user_address">User Address</string>
+    <string name="license_expiry_date">License Expiry Date</string>
+    <string name="license_number">License Number</string>
+    <string name="date_of_birth">Date of Birth</string>
+    <string name="mobile_number">Mobile Number</string>
+    <string name="landline_number">Landline Number</string>
 </resources>

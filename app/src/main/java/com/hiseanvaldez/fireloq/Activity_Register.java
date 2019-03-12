@@ -2,6 +2,7 @@ package com.hiseanvaldez.fireloq;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -32,10 +34,10 @@ public class Activity_Register extends AppCompatActivity implements View.OnClick
     private FirebaseAuth mAuth;
     private FirebaseFirestore mDatabase;
     private EditText email, password, fullName, street, city, province, mobile, landline, license;
-    private EditText dateOfBirth;
+    private EditText dateOfBirth, expiry;
     private Spinner gender;
 
-    private DatePickerDialog.OnDateSetListener onDateSetListener;
+    private DatePickerDialog.OnDateSetListener dobListener, expListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,7 @@ public class Activity_Register extends AppCompatActivity implements View.OnClick
         email = findViewById(R.id.tx_email);
         password = findViewById(R.id.tx_password);
         fullName = findViewById(R.id.tx_fullname);
+
         dateOfBirth = findViewById(R.id.tx_dateOfBirth);
         dateOfBirth.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,10 +58,18 @@ public class Activity_Register extends AppCompatActivity implements View.OnClick
                 int year = cal.get(Calendar.YEAR);
                 int month = cal.get(Calendar.MONTH);
                 int day = cal.get(Calendar.DAY_OF_MONTH);
-                DatePickerDialog dialog = new DatePickerDialog(Activity_Register.this, android.R.style.Theme_Material_Light_Dialog, onDateSetListener, year, month, day);
+                DatePickerDialog dialog = new DatePickerDialog(Activity_Register.this, android.R.style.Theme_Material_Light_Dialog, dobListener, year, month, day);
                 dialog.show();
             }
         });
+        dobListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                String date = dayOfMonth + "/" + (month + 1) + "/" + year;
+                dateOfBirth.setText(date);
+            }
+        };
+
         gender = findViewById(R.id.sp_gender);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.gender, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -71,14 +82,25 @@ public class Activity_Register extends AppCompatActivity implements View.OnClick
         landline = findViewById(R.id.tx_landline);
         license = findViewById(R.id.tx_licenseNumber);
 
-        onDateSetListener = new DatePickerDialog.OnDateSetListener() {
+        expiry = findViewById(R.id.tx_expDate);
+        expiry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar cal = Calendar.getInstance();
+                int year = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
+                DatePickerDialog dialog = new DatePickerDialog(Activity_Register.this, android.R.style.Theme_Material_Light_Dialog, expListener, year, month, day);
+                dialog.show();
+            }
+        });
+        expListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 String date = dayOfMonth + "/" + (month + 1) + "/" + year;
-                dateOfBirth.setText(date);
+                expiry.setText(date);
             }
         };
-
 
         mDatabase = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
@@ -102,7 +124,7 @@ public class Activity_Register extends AppCompatActivity implements View.OnClick
                 finish();
                 break;
             case R.id.bt_register:
-                if(validateForm()){
+                if (validateForm()) {
                     requestAccount();
                 }
                 break;
@@ -124,6 +146,18 @@ public class Activity_Register extends AppCompatActivity implements View.OnClick
         user_request.put("landline_number", landline.getText().toString());
         user_request.put("license_number", license.getText().toString());
 
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        try{
+            Date date = format.parse(dateOfBirth.getText().toString());
+            user_request.put("bday", new Timestamp(date));
+            date = format.parse(expiry.getText().toString());
+            user_request.put("license_expiry", new Timestamp(date));
+
+        }
+        catch (Exception e){
+            Log.e(TAG, "requestAccount: Error Parsing Date", e);
+        }
+
         String[] name = fullName.getText().toString().split(" ");
         user_request.put("first_name", name[0]);
         if (name.length == 2) {
@@ -133,12 +167,15 @@ public class Activity_Register extends AppCompatActivity implements View.OnClick
             user_request.put("last_name", name[2]);
         }
 
-        mDatabase.collection("user_requests")
+        mDatabase.collection("users")
                 .add(user_request)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
                         Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                        Toast.makeText(getApplicationContext(), "Request for new account apporval has been sent.", Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(Activity_Register.this, Activity_Login.class));
+                        finish();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -203,13 +240,17 @@ public class Activity_Register extends AppCompatActivity implements View.OnClick
             mobile.setError(null);
         }
 
-
-        if(TextUtils.isEmpty(dateOfBirth.getText().toString())){
+        if (TextUtils.isEmpty(dateOfBirth.getText().toString())) {
             dateOfBirth.setError("Required.");
             valid = false;
-        }
-        else{
+        } else {
             dateOfBirth.setError(null);
+        }
+        if (TextUtils.isEmpty(expiry.getText().toString())) {
+            expiry.setError("Required.");
+            valid = false;
+        } else {
+            expiry.setError(null);
         }
 
         return valid;

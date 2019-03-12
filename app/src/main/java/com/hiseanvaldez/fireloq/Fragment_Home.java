@@ -1,5 +1,6 @@
 package com.hiseanvaldez.fireloq;
 
+import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -8,6 +9,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,21 +18,26 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.ebanx.swipebtn.OnStateChangeListener;
 import com.ebanx.swipebtn.SwipeButton;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 import app.akexorcist.bluetotohspp.library.BluetoothSPP;
 import app.akexorcist.bluetotohspp.library.BluetoothState;
@@ -68,8 +75,8 @@ public class Fragment_Home extends Fragment implements View.OnClickListener {
             public void onStateChange(boolean active) {
                 bypass = active;
 
-                long time = System.nanoTime();
-                parseMessage(String.valueOf((Math.random() * ((90 - (-90)) + 1)) + (-90)) + "," + String.valueOf((Math.random() * ((180 - (-180)) + 1)) + (-180)) + "," + time);
+//                long time = System.nanoTime();
+//                parseMessage(String.valueOf((Math.random() * ((90 - (-90)) + 1)) + (-90)) + "," + String.valueOf((Math.random() * ((180 - (-180)) + 1)) + (-180)) + "," + time);
             }
         });
 
@@ -86,6 +93,36 @@ public class Fragment_Home extends Fragment implements View.OnClickListener {
             startActivity(new Intent(getActivity(), Activity_Login.class));
             main.finish();
         }
+
+        CollectionReference userColRef = mDatabase.collection("users");
+        Query userQuery = userColRef.whereEqualTo("user_id", mAuth.getUid());
+        userQuery.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                Model_Users user = queryDocumentSnapshots.getDocuments().get(0).toObject(Model_Users.class);
+                Date firstDate = new Date();
+                Date secondDate = user.getLicense_expiry().toDate();
+                long diffInMillis = Math.abs(secondDate.getTime() - firstDate.getTime());
+                long diff = TimeUnit.DAYS.convert(diffInMillis, TimeUnit.MILLISECONDS);
+
+                if (diff < 30) {
+                    Snackbar snack = Snackbar.make(getActivity().findViewById(android.R.id.content), "License nearing expiry, " + String.valueOf(diff) + " days left.", Snackbar.LENGTH_INDEFINITE)
+                            .setAction("Dismiss", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+
+                                }
+                            });
+                    snack.show();
+                }
+            }
+        })
+        .addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getContext(), "Failed to retrieve user data.", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     @Override
@@ -136,19 +173,21 @@ public class Fragment_Home extends Fragment implements View.OnClickListener {
     private void parseMessage(String message) {
         String[] coordinates = message.split(",");
         if (Long.parseLong(coordinates[2]) - timer > 500) {
-            writeNotification(coordinates[0], coordinates[1], coordinates[2]);
+            writeNotification(coordinates[0], coordinates[1]);
             timer = Long.parseLong(coordinates[2]);
         }
     }
 
-    private void writeNotification(String latitude, String longitude, String timer) {
+    private void writeNotification(String latitude, String longitude) {
         Map<String, Object> notification = new HashMap<>();
-        notification.put("datetime", new Timestamp(new Date()));
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss a");
+        Date now = new Date();
+        notification.put("datetime", format.format(now));
         notification.put("user_id", Objects.requireNonNull(mAuth.getUid()));
         notification.put("status", "sent");
-        notification.put("timer", Long.parseLong(timer));
         notification.put("latitude", Double.parseDouble(latitude));
         notification.put("longitude", Double.parseDouble(longitude));
+        notification.put("source", "bluetooth");
         if (bypass) {
             notification.put("type", "quiet");
         } else {

@@ -1,6 +1,7 @@
 package com.hiseanvaldez.fireloq;
 
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -99,6 +100,7 @@ public class Dialog_AddGun extends DialogFragment {
             public void onClick(View v) {
                 if(validateForm()){
                     addGun();
+                    getDialog().dismiss();
                 }
             }
         });
@@ -123,14 +125,13 @@ public class Dialog_AddGun extends DialogFragment {
         } catch (Exception e) {
             Log.e(TAG, "addGun: Parse error.", e);
         }
-        mDatabase.collection("gun_requests")
+        mDatabase.collection("guns")
                 .add(gun_request)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
                         Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
                         new Firestore_WriteLog(mAuth, "Added Gun");
-                        Toast.makeText(getContext(), "Gun successfully added.", Toast.LENGTH_SHORT).show();
                         dismiss();
                     }
                 })
@@ -181,5 +182,18 @@ public class Dialog_AddGun extends DialogFragment {
         }
 
         return valid;
+    }
+
+    private DialogInterface.OnDismissListener onDismissListener;
+    public void setOnDismissListener(DialogInterface.OnDismissListener onDismissListener) {
+        this.onDismissListener = onDismissListener;
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+        if (onDismissListener != null) {
+            onDismissListener.onDismiss(dialog);
+        }
     }
 }
