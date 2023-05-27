@@ -6,31 +6,31 @@ public class Model_Logs {
     private String action;
     private String user_id;
     private String log_type;
-    private Timestamp datetime;
+    private String datetime;
 
     public Model_Logs() {
     }
 
-    public Model_Logs(String action, String user_id, String log_type, Timestamp datetime) {
+    public Model_Logs(String action, String user_id, String log_type, String datetime) {
         this.action = action;
         this.user_id = user_id;
         this.log_type = log_type;
         this.datetime = datetime;
     }
 
-    String getUser_id() {
-        return user_id;
-    }
-
-    String getAction() {
+    public String getAction() {
         return action;
     }
 
-    String getLog_type() {
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public String getLog_type() {
         return log_type;
     }
 
-    Timestamp getDatetime() {
+    public String getDatetime() {
         return datetime;
     }
 }

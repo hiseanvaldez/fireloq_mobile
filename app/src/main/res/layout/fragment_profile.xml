@@ -5,20 +5,20 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/header_cover_image"
+            android:id="@+id/iv_header"
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:scaleType="centerCrop"
             android:src="@drawable/nav_menu_header_bg" />
 
         <ImageButton
-            android:id="@+id/user_profile_photo"
+            android:id="@+id/iv_avatar"
             android:layout_width="180dp"
             android:layout_height="180dp"
-            android:layout_below="@+id/header_cover_image"
+            android:layout_below="@+id/iv_header"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="-90dp"
             android:background="@drawable/profile_imageview"
@@ -31,38 +31,39 @@
             android:id="@+id/profile_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/header_cover_image"
+            android:layout_below="@+id/iv_header"
             android:background="@color/colorAccentDark"
             android:elevation="4dp"
             android:paddingBottom="24dp">
 
             <ImageView
-                android:id="@+id/drop_down_option_menu"
+                android:id="@+id/iv_edit"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:layout_margin="16dp"
                 android:src="@drawable/ic_edit_black_24dp" />
 
+
             <TextView
-                android:id="@+id/user_profile_name"
+                android:id="@+id/tv_fullname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="100dp"
-                android:text="FirstName LastName"
+                android:text="@string/firstname_lastname"
                 android:textColor="#fff"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/user_profile_short_bio"
+                android:id="@+id/tv_email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/user_profile_name"
+                android:layout_below="@+id/tv_fullname"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="12dp"
-                android:text="firstname.lastname@fireloq.com"
+                android:text="@string/firstname_lastname_fireloq_com"
                 android:textColor="#fff"
                 android:textSize="14sp" />
         </RelativeLayout>
@@ -70,64 +71,82 @@
 
         <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_below="@+id/profile_layout"
             android:layout_marginTop="5dp"
             android:orientation="vertical">
 
             <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="#fff"
-                android:clickable="true"
-                android:elevation="4dp"
-                android:padding="20dp"
-                android:text="User Address" />
-
-            <TextView
+                android:id="@+id/tv_address"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_marginBottom="3dp"
-                android:layout_marginTop="3dp"
                 android:background="#fff"
                 android:clickable="true"
                 android:elevation="4dp"
                 android:padding="20dp"
-                android:text="Date of Birth" />
+                android:text="@string/user_address" />
 
             <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="#fff"
-                android:clickable="true"
-                android:elevation="4dp"
-                android:padding="20dp"
-                android:text="Mobile Number" />
-
-            <TextView
+                android:id="@+id/tv_dateofbirth"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_marginBottom="3dp"
-                android:layout_marginTop="3dp"
                 android:background="#fff"
                 android:clickable="true"
                 android:elevation="4dp"
                 android:padding="20dp"
-                android:text="Landline Number" />
+                android:text="@string/date_of_birth" />
 
             <TextView
+                android:id="@+id/tv_mobileno"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
+                android:layout_marginBottom="3dp"
                 android:background="#fff"
                 android:clickable="true"
                 android:elevation="4dp"
                 android:padding="20dp"
-                android:text="License Number" />
+                android:text="@string/mobile_number" />
+
+            <TextView
+                android:id="@+id/tv_landlineno"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_marginBottom="3dp"
+                android:background="#fff"
+                android:clickable="true"
+                android:elevation="4dp"
+                android:padding="20dp"
+                android:text="@string/landline_number" />
+
+            <TextView
+                android:id="@+id/tv_licenseno"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_marginBottom="3dp"
+                android:background="#fff"
+                android:clickable="true"
+                android:elevation="4dp"
+                android:padding="20dp"
+                android:text="@string/license_number" />
+
+            <TextView
+                android:id="@+id/tv_licenseexpiry"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_marginBottom="3dp"
+                android:background="#fff"
+                android:clickable="true"
+                android:elevation="4dp"
+                android:padding="20dp"
+                android:text="@string/license_expiry_date" />
         </LinearLayout>
     </RelativeLayout>
 </ScrollView>

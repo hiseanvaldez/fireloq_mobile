@@ -1,5 +1,6 @@
 package com.hiseanvaldez.fireloq;
 
+import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -10,8 +11,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
@@ -32,13 +35,14 @@ class Firestore_WriteLog {
 
     private void writeLog(){
         Map<String, Object> log = new HashMap<>();
-        log.put("datetime", new Timestamp(new Date()));
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss a");
+        Date now = new Date();
+        log.put("datetime", format.format(now));
         log.put("user_id", Objects.requireNonNull(mAuth.getUid()));
         log.put("status", true);
-        log.put("log_type", "Mobile");
         log.put("action", action);
 
-        mDatabase.collection("logs")
+        mDatabase.collection("mobile_logs")
                 .add(log)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override

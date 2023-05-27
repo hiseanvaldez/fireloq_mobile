@@ -39,7 +39,7 @@ public class Fragment_Logs extends Fragment {
         rv_logs = view.findViewById(R.id.rv_logs);
         rv_logs.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        CollectionReference logRef = mDatabase.collection("logs");
+        CollectionReference logRef = mDatabase.collection("mobile_logs");
         logQuery = logRef
                 .whereEqualTo("user_id", mAuth.getUid())
                 .orderBy("datetime", Query.Direction.DESCENDING)
@@ -50,7 +50,10 @@ public class Fragment_Logs extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        loadList();
+    }
 
+    public void loadList(){
         FirestoreRecyclerOptions<Model_Logs> options = new FirestoreRecyclerOptions.Builder<Model_Logs>()
                 .setQuery(logQuery, Model_Logs.class)
                 .build();
@@ -60,11 +63,7 @@ public class Fragment_Logs extends Fragment {
             protected void onBindViewHolder(@NonNull LogsViewHolder holder, int position, @NonNull Model_Logs model) {
                 holder.tv_logTitle.setText(model.getAction());
 
-                Date date = model.getDatetime().toDate();
-                SimpleDateFormat format = new SimpleDateFormat("dd MMM yyyy, hh:mm a");
-                String stringDate = format.format(date);
-
-                holder.tv_logDatetime.setText(stringDate);
+                holder.tv_logDatetime.setText(model.getDatetime());
                 holder.tv_logUserId.setText(model.getUser_id());
             }
 

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#f0f0f0"
     tools:context=".Activity_Register">
 
     <android.support.design.widget.TextInputLayout
@@ -55,7 +56,6 @@
             android:id="@+id/tx_fullname"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:autofillHints="firstName"
             android:ems="10"
             android:hint="@string/full_name"
             android:inputType="text" />
@@ -73,7 +73,6 @@
             android:id="@+id/tx_dateOfBirth"
             android:layout_width="190dp"
             android:layout_height="match_parent"
-            android:autofillHints="firstName"
             android:clickable="true"
             android:editable="false"
             android:ems="10"
@@ -108,7 +107,6 @@
             android:id="@+id/tx_street"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:autofillHints="firstName"
             android:ems="10"
             android:hint="@string/street"
             android:inputType="text" />
@@ -127,7 +125,6 @@
             android:id="@+id/tx_city"
             android:layout_width="190dp"
             android:layout_height="match_parent"
-            android:autofillHints="firstName"
             android:ems="10"
             android:hint="@string/city"
             android:inputType="text" />
@@ -147,7 +144,6 @@
             android:id="@+id/tx_province"
             android:layout_width="190dp"
             android:layout_height="match_parent"
-            android:autofillHints="firstName"
             android:ems="10"
             android:hint="@string/province"
             android:inputType="text" />
@@ -166,7 +162,6 @@
             android:id="@+id/tx_mobile"
             android:layout_width="190dp"
             android:layout_height="match_parent"
-            android:autofillHints="firstName"
             android:ems="10"
             android:hint="@string/mobile_number"
             android:inputType="text" />
@@ -186,7 +181,6 @@
             android:id="@+id/tx_landline"
             android:layout_width="190dp"
             android:layout_height="match_parent"
-            android:autofillHints="firstName"
             android:ems="10"
             android:hint="@string/landline_number"
             android:inputType="text" />
@@ -204,10 +198,28 @@
             android:id="@+id/tx_licenseNumber"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:autofillHints="firstName"
             android:ems="10"
-            android:hint="License Number"
+            android:hint="@string/license_number"
             android:inputType="text" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/tl_expDate"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tl_licenseNumber"
+        android:layout_alignStart="@id/tl_licenseNumber"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="0dp">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/tx_expDate"
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:editable="false"
+            android:ems="10"
+            android:hint="@string/expiry_date" />
     </android.support.design.widget.TextInputLayout>
 
     <Button
@@ -215,7 +227,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/bt_register"
-        android:background="@android:color/transparent"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/button_border"
+        android:elevation="8dp"
         android:text="@string/already_a_member"
         android:textColor="@color/colorAccentDark"
         android:textSize="20sp" />
@@ -225,7 +241,11 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_alignParentBottom="true"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="25dp"
         android:background="@color/colorAccentDark"
+        android:elevation="8dp"
         android:text="@string/sign_up"
         android:textColor="#FFF"
         android:textSize="25sp" />

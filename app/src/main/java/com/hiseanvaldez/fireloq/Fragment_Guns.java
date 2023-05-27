@@ -1,6 +1,7 @@
 package com.hiseanvaldez.fireloq;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,7 +15,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -51,11 +51,18 @@ public class Fragment_Guns extends Fragment {
             @Override
             public void onClick(View v) {
                 Dialog_AddGun dialog_addGun = new Dialog_AddGun();
+                dialog_addGun.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        loadList();
+                    }
+                });
                 dialog_addGun.show(Objects.requireNonNull(getFragmentManager()), "Dialog_AddGun");
+
             }
         });
 
-        CollectionReference gunRef = mDatabase.collection("gun_requests");
+        CollectionReference gunRef = mDatabase.collection("guns");
         gunQuery = gunRef
                 .whereEqualTo("user_id", mAuth.getUid())
                 .whereEqualTo("status", "pending")
@@ -67,7 +74,10 @@ public class Fragment_Guns extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        loadList();
+    }
 
+    public void loadList(){
         FirestoreRecyclerOptions<Model_Guns> options = new FirestoreRecyclerOptions.Builder<Model_Guns>()
                 .setQuery(gunQuery,Model_Guns.class)
                 .build();
@@ -106,7 +116,6 @@ public class Fragment_Guns extends Fragment {
         };
 
         rv_guns.setAdapter(adapter);
-
         adapter.startListening();
     }
 
@@ -121,4 +130,6 @@ public class Fragment_Guns extends Fragment {
             tv_startEnd = itemView.findViewById(R.id.tv_startEnd);
         }
     }
+
+
 }

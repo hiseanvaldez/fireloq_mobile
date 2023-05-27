@@ -42,11 +42,6 @@ public class Activity_Login extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onStart() {
         super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
-            startActivity(new Intent(Activity_Login.this, Activity_Main.class));
-            finish();
-        }
     }
 
     private void signIn(String email, String password) {
@@ -65,7 +60,7 @@ public class Activity_Login extends AppCompatActivity implements View.OnClickLis
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithEmail:failure", task.getException());
-                    new Firestore_WriteLog(mAuth, "Log In Attempt");
+                    //new Firestore_WriteLog(mAuth, "Log In Attempt");
                     Toast.makeText(getApplicationContext(), "Authentication failed.", Toast.LENGTH_SHORT).show();
                 }
             }

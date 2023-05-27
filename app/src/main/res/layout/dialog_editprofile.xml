@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingStart="10dp"
+    android:paddingTop="10dp"
+    android:paddingEnd="10dp">
+
+    <TextView
+        android:id="@+id/tv_editProfileHeading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/modify_profile_details"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/tl_eLicenseNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_editProfileHeading"
+        android:layout_marginTop="25dp">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/tx_eLicenseNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_addGunHeading"
+            android:hint="@string/license_number" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/tl_eExpDate"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tl_eLicenseNumber"
+        android:layout_alignStart="@id/tl_eLicenseNumber"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="0dp">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/tx_eExpDate"
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:editable="false"
+            android:ems="10"
+            android:hint="@string/expiry_date" />
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/bt_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tl_eExpDate"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@color/colorAccentDark"
+        android:text="@string/submit"
+        android:textColor="#FFF"
+        android:textSize="18sp" />
+</RelativeLayout>
