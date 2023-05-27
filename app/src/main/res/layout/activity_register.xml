@@ -7,6 +7,7 @@
     android:background="#f0f0f0"
     tools:context=".Activity_Register">
 
+
     <android.support.design.widget.TextInputLayout
         android:id="@+id/tl_email"
         android:layout_width="400dp"
@@ -92,7 +93,7 @@
             android:id="@+id/sp_gender"
             android:layout_width="190dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_weight="1"/>
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -164,7 +165,7 @@
             android:layout_height="match_parent"
             android:ems="10"
             android:hint="@string/mobile_number"
-            android:inputType="text" />
+            android:inputType="number" />
     </android.support.design.widget.TextInputLayout>
 
 
@@ -183,7 +184,7 @@
             android:layout_height="match_parent"
             android:ems="10"
             android:hint="@string/landline_number"
-            android:inputType="text" />
+            android:inputType="number" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -199,7 +200,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:ems="10"
-            android:hint="@string/license_number"
+            android:hint="@string/ltopf_id_no"
             android:inputType="text" />
     </android.support.design.widget.TextInputLayout>
 

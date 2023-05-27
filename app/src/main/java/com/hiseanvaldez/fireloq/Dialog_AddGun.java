@@ -24,6 +24,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -178,6 +179,18 @@ public class Dialog_AddGun extends DialogFragment {
             expDate.setError("Required.");
             valid = false;
         } else {
+            try {
+                if (new android.icu.text.SimpleDateFormat("dd/MM/yyyy").parse(expDate.getText().toString()).before(new Date())) {
+                    expDate.setError("Permit is expired.");
+                    valid = false;
+
+                }else {
+                    expDate.setError(null);
+                }
+            }
+            catch (ParseException e){
+
+            }
             expDate.setError(null);
         }
 
