@@ -104,11 +104,11 @@ public class Fragment_Guns extends Fragment {
                 view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Fragment_GunDetails gunDetails = new Fragment_GunDetails();
-                        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.replace(R.id.fragment_container, gunDetails);
-                        fragmentTransaction.addToBackStack(null);
-                        fragmentTransaction.commit();
+//                        Fragment_GunDetails gunDetails = new Fragment_GunDetails();
+//                        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+//                        fragmentTransaction.replace(R.id.fragment_container, gunDetails);
+//                        fragmentTransaction.addToBackStack(null);
+//                        fragmentTransaction.commit();
                     }
                 });
                 return new GunsViewHolder(view);
@@ -130,6 +130,4 @@ public class Fragment_Guns extends Fragment {
             tv_startEnd = itemView.findViewById(R.id.tv_startEnd);
         }
     }
-
-
 }

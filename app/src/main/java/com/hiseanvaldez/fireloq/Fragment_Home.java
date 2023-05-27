@@ -105,16 +105,20 @@ public class Fragment_Home extends Fragment implements View.OnClickListener {
                 long diffInMillis = Math.abs(secondDate.getTime() - firstDate.getTime());
                 long diff = TimeUnit.DAYS.convert(diffInMillis, TimeUnit.MILLISECONDS);
 
-                if (diff < 30) {
-                    Snackbar snack = Snackbar.make(getActivity().findViewById(android.R.id.content), "License nearing expiry, " + String.valueOf(diff) + " days left.", Snackbar.LENGTH_INDEFINITE)
-                            .setAction("Dismiss", new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
+                Snackbar snack = Snackbar.make(getActivity().findViewById(android.R.id.content), "LTOPF ID nearing expiry, " + String.valueOf(diff) + " days left.", Snackbar.LENGTH_INDEFINITE)
+                        .setAction("Dismiss", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
 
-                                }
-                            });
-                    snack.show();
+                            }
+                        });
+                if (diff < 30 && diff > 0) {
+                    snack.setText("LTOPF ID nearing expiry, " + String.valueOf(diff) + " days left.");
                 }
+                else if(diff < 1){
+                    snack.setText("LTOPF is expired.");
+                }
+                snack.show();
             }
         })
         .addOnFailureListener(new OnFailureListener() {

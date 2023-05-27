@@ -7,7 +7,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/nav_menu_header_bg"
+        android:src="@drawable/splash"
         android:scaleType="centerCrop"/>
 
 </RelativeLayout>

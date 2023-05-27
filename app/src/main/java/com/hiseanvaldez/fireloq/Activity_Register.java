@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -15,18 +16,24 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.SignInMethodQueryResult;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 public class Activity_Register extends AppCompatActivity implements View.OnClickListener {
 
@@ -47,6 +54,13 @@ public class Activity_Register extends AppCompatActivity implements View.OnClick
         findViewById(R.id.bt_login).setOnClickListener(this);
         findViewById(R.id.bt_register).setOnClickListener(this);
         email = findViewById(R.id.tx_email);
+        email.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus){
+                }
+            }
+        });
         password = findViewById(R.id.tx_password);
         fullName = findViewById(R.id.tx_fullname);
 
@@ -105,6 +119,18 @@ public class Activity_Register extends AppCompatActivity implements View.OnClick
         mDatabase = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
     }
+    public  boolean emailexists = false;
+    public boolean emailIsRegistered(String email) {
+        mAuth.fetchSignInMethodsForEmail(email).addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
+            @Override
+            public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
+                if(task.getResult().getSignInMethods().size() > 0) {
+                    emailexists = true;
+                }
+            }
+        });
+        return emailexists;
+    }
 
     @Override
     protected void onStart() {
@@ -125,7 +151,7 @@ public class Activity_Register extends AppCompatActivity implements View.OnClick
                 break;
             case R.id.bt_register:
                 if (validateForm()) {
-                    requestAccount();
+                    //requestAccount();
                 }
                 break;
         }
@@ -192,7 +218,13 @@ public class Activity_Register extends AppCompatActivity implements View.OnClick
             email.setError("Required.");
             valid = false;
         } else {
-            email.setError(null);
+            if(emailIsRegistered(email.getText().toString())){
+                email.setError("Email already exists.");
+                valid = false;
+            }
+            else{
+                email.setError(null);
+            }
         }
 
         if (TextUtils.isEmpty(password.getText().toString())) {
@@ -250,7 +282,27 @@ public class Activity_Register extends AppCompatActivity implements View.OnClick
             expiry.setError("Required.");
             valid = false;
         } else {
-            expiry.setError(null);
+            Calendar exp = new GregorianCalendar();
+            exp.setTime(new Date(expiry.getText().toString()));
+            Calendar today = new GregorianCalendar();
+            today.setTime(new Date());
+
+            int yearsInBetween = today.get(Calendar.YEAR) - exp.get(Calendar.YEAR);
+
+            try {
+                if (new SimpleDateFormat("dd/MM/yyyy").parse(expiry.getText().toString()).before(new Date())) {
+                    expiry.setError("LTOPF ID is expired.");
+                    valid = false;
+
+                }else {
+                    expiry.setError(null);
+                }
+            }
+            catch (ParseException e){
+
+            }
+
+
         }
 
         return valid;

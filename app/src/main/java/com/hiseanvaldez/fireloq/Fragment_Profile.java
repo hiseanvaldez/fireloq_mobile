@@ -1,5 +1,6 @@
 package com.hiseanvaldez.fireloq;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -53,6 +54,10 @@ public class Fragment_Profile extends Fragment implements View.OnClickListener {
     @Override
     public void onStart() {
         super.onStart();
+        loadUserInfo();
+    }
+
+    public void loadUserInfo(){
         CollectionReference userColRef = mDatabase.collection("users");
         Query userQuery = userColRef.whereEqualTo("user_id", mAuth.getUid());
         userQuery.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -71,7 +76,6 @@ public class Fragment_Profile extends Fragment implements View.OnClickListener {
                 licenseexpiry.setText(sdf.format(user.getLicense_expiry().toDate()));
             }
         });
-        Toast.makeText(getContext(), userDocID, Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -81,9 +85,18 @@ public class Fragment_Profile extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.iv_edit:
+                Bundle args = new Bundle();
+                args.putString("userDocID", userDocID);
                 Dialog_EditProfile dialog_editProfile = new Dialog_EditProfile();
+                dialog_editProfile.setArguments(args);
+                dialog_editProfile.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        loadUserInfo();
+                    }
+                });
                 dialog_editProfile.show(Objects.requireNonNull(getFragmentManager()), "Dialog_EditProfile");
         }
     }

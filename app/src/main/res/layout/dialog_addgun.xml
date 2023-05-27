@@ -72,7 +72,7 @@
             android:id="@+id/tx_regNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/registration_number" />
+            android:hint="@string/permit_number" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
